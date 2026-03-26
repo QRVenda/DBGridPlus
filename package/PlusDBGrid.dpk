@@ -1,0 +1,112 @@
+{------------------------------------------------------------------------------+
+|                                                                              |
+|  CRÉDITOS.....: TODOS OS CRÉDITOS ao autor do "TSMDBGrid"                    |
+|                 Esse componente "TDBGridPlus"se originou do "TSMDBGrid"      |
+|                 Site: https://www.scalabium.com/smdbgrid.htm                 |
+|------------------------------------------------------------------------------|
+|                                                                              |
+|  Antecessor...: TSMDBGrid - Herdado do TDBGrid (nativo do Delphi)            |
+|  Unit.........: DBGridPlus.pas                                               |
+|  Componente...: "TDBGridPlus"                                                |
+|  Data.........: 15/07/2024 - 22:03h                                          |
+|  Coautoria....: Adriano Zanini                                               |
+|                                                                              |
+|------------------------------------------------------------------------------|
+|  Observações..: Encontrei nesse componente antecessor ("TSMDBGrid") muitas   |
+|    funcionalidades incríveis. Eu necessitava de um componente "DBGrid" com   |
+|    recursos extras sem ter que usar componentes pagos (e conheço muitos),    |
+|    que muitas vezes são complexos e inflam o executável com units            |
+|    desnecessárias.                                                           |
+|                                                                              |
+|    Esse componente permite:                                                  |
+|     "grid zebrada" com cores já pré definidas                                |
+|     "agrupamento de colunas"                                                 |
+|     "salvar/restaurar layout"                                                |
+|     "totalizador no rodapé"                                                  |
+|     "Quebra de linha no titulo da coluna"                                    |
+|      e muitas outras funcionalidades bem produtivas.                         |
+|                                                                              |
+|------------------------------------------------------------------------------|
+|                                                                              |
+|  Refatoração..:  Limpei varios codigos do TSMDBGrid que não tinham           |
+|       funcionalidades práticas e até com bugs.                               |
+|                                                                              |
+|  Adicionei novas propriedades nas colunas.:                                  |
+|      1. "ColunaAjuste" com essas 'subpropriedades':                          |
+|      1.1 ComMaxSize: Define largura máximo da coluna                         |
+|      1.2 ComMinSize: Define largura mínima da coluna                         |
+|      1.3 ColAutoWidth: Permite coluna ser Autoajustável.                     |
+|         Se ComMaxSize for > 0, autoajusta mas não deixa ultrapassar o valor  |
+|         ComMaxSize. Se ComMaxSize for 0, não tem limite de largura           |
+|         quando se autoajustar. Mesmo assim irá respeitar o ComMaxSize        |
+|         das outras colunas. Muita atenção ao combinar essa "concorrencia"    |
+|         de largura entre elas.                                               |
+|                                                                              |
+|      2. "DisplayFormat":                                                     |
+|      2.1 Permite formatar a coluna de acordo com mascara que você definir    |
+|      2.1.1 Testado e validado com inteiros, valores e datas.                 |
+|                                                                              |
+|      3. "CheckBox": Defina aqui o valor que é usado no seu banco de dados.   |
+|          Exemplos: Se pra coluna verdadeira (true) você usa "S", defina      |
+|          em "CheckedValue" o valor: "S" (sem aspas). E assim por diante.     |
+|      3.1 CheckedValue: Valor que faz o checkbox ficar marcado                |
+|      3.2 UnCheckedValue: Valor que faz o checkbox ficar desmarcado           |
+|                                                                              |
+|------------------------------------------------------------------------------|
+|  Se você pode contribuir mais, faça os ajustes necessários, preservando      |
+|  os autores ("TSMDBGrid"), coautores ("TDBGridPlus") e você tambem.          |
+|  Especifique aqui no cabeçalho as melhorias que você fizer.                  |
+|  E compartilhe!                                                              |
+|                                                                              |
++------------------------------------------------------------------------------}
+
+
+package PlusDBGrid;
+
+{$R *.res}
+{$R 'DBGridPlus.dcr'}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'TDBGridPlus (TDBGrid)'}
+{$IMPLICITBUILD ON}
+
+requires
+  vcl,
+  rtl,
+  vclwinx,
+  dbrtl,
+  vcldb,
+  dsnap,
+  FireDAC,
+  FireDACCommonDriver,
+  FireDACCommon;
+
+contains
+  DBGridPlus in '..\src\DBGridPlus.pas',
+  DBGridPlusConst in '..\src\DBGridPlusConst.pas',
+  DBGridPlusDraw in '..\src\DBGridPlusDraw.pas',
+  DBGridPlusUtil in '..\src\DBGridPlusUtil.pas';
+
+end.
